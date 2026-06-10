@@ -71,8 +71,9 @@ export default function ProjectCard() {
             src="/photo.jpg"
             alt="By Niel"
             fill
+            sizes="(max-width: 768px) 85vw, 420px"
             style={{ objectFit: 'cover', objectPosition: '30% 35%' }}
-            priority
+            preload
           />
         </div>
       </div>
