@@ -1,0 +1,182 @@
+/* ── Process: pinned horizontal-scroll section ───────────────────── */
+.process {
+  position: relative;
+  z-index: 30;
+  height: 100vh;
+  overflow: hidden;
+  background: #f7ffdc;
+  color: #1e1e1e;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+/* fixed header band inside the pinned section */
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 88px 40px 22px;
+  pointer-events: none;
+}
+
+.title {
+  font-size: clamp(40px, 7vw, 116px);
+  font-weight: 800;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0 24px;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.meta span:nth-child(even) {
+  text-align: right;
+}
+
+/* horizontal track that slides on scroll */
+.track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  will-change: transform;
+}
+
+/* decorative black grid panel before step 1 */
+.gridPanel {
+  flex: 0 0 auto;
+  width: clamp(220px, 26vw, 380px);
+  background:
+    repeating-linear-gradient(to right, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px 64px),
+    #141414;
+}
+
+/* each step column */
+.step {
+  flex: 0 0 auto;
+  width: clamp(340px, 40vw, 560px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 clamp(28px, 3.2vw, 56px) clamp(28px, 5vh, 64px);
+  border-right: 1px solid rgba(20, 20, 20, 0.22);
+}
+
+/* CD-case mockup media — the image carries its own case, shadow & spine */
+.stepMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 46vh;
+  margin: auto 0 clamp(20px, 4vh, 48px);
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  font-size: clamp(18px, 2vw, 30px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.stepHead {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.stepNum {
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #141414;
+  color: #f7ffdc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.stepTitle {
+  font-size: clamp(26px, 3vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0;
+}
+
+.stepDesc {
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 38ch;
+  text-indent: 28px;
+  color: #1e1e1e;
+}
+
+/* ── Mobile / tablet: same horizontal-scroll layout, scaled down ──── */
+@media (max-width: 900px) {
+  .header {
+    padding: 78px 24px 18px;
+  }
+
+  .title {
+    font-size: clamp(40px, 13vw, 80px);
+  }
+
+  /* compact meta so it fits beside the title */
+  .meta {
+    grid-template-columns: 1fr;
+    gap: 1px;
+    font-size: 9px;
+    white-space: normal;
+    text-align: right;
+  }
+
+  .meta span:nth-child(even) {
+    margin-bottom: 5px;
+  }
+
+  .gridPanel {
+    width: clamp(90px, 24vw, 150px);
+  }
+
+  /* one card mostly fills the screen, next one peeks in */
+  .step {
+    width: min(82vw, 420px);
+    padding: 0 24px clamp(28px, 6vh, 56px);
+  }
+
+  .stepMedia {
+    max-height: 40vh;
+  }
+}

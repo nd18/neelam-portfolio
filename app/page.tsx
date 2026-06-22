@@ -4,6 +4,7 @@ import SpotlightBeam from "./components/SpotlightBeam";
 import ProjectCard from "./components/ProjectCard";
 import AboutSection from "./components/AboutSection";
 import ProjectsSection from "./components/ProjectsSection";
+import ProcessSection from "./components/ProcessSection";
 
 export default function Home() {
   return (
@@ -41,6 +42,7 @@ export default function Home() {
 
       <AboutSection />
       <ProjectsSection />
+      <ProcessSection />
     </main>
   );
 }

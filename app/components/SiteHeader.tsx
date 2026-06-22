@@ -8,22 +8,30 @@ import TiltButton from './TiltButton';
 
 export default function SiteHeader() {
   const [contactOpen, setContactOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [onDark, setOnDark] = useState(false);
 
-  // fade the header out once the user scrolls away from the top
+  // header stays visible everywhere; over a dark section the logo flips to light
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const check = () => {
+      let dark = false;
+      document.querySelectorAll('[data-header-dark]').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.top <= 64 && r.bottom >= 64) dark = true;
+      });
+      setOnDark(dark);
+    };
+    check();
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    return () => {
+      window.removeEventListener('scroll', check);
+      window.removeEventListener('resize', check);
+    };
   }, []);
-
-  // keep it visible while the contact overlay is open so it can be closed
-  const hidden = scrolled && !contactOpen;
 
   return (
     <>
-      <nav className={`${styles.nav} ${hidden ? styles.navHidden : ''}`}>
+      <nav className={`${styles.nav} ${onDark ? styles.navDark : ''}`}>
         <Link href="/" aria-label="Home" className={styles.navLogo}>
           <Image src="/byniel-logo.png" alt="By Niel" width={64} height={64} />
         </Link>

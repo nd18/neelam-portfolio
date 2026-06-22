@@ -8,9 +8,10 @@
 
 html,
 body {
-  height: 100%;
   max-width: 100vw;
-  overflow-x: hidden;
+  /* clip (not hidden) prevents horizontal scroll WITHOUT turning body into a
+     scroll container — keeps the window as the scroller so ScrollTrigger pins work */
+  overflow-x: clip;
   font-family: var(--font-geist-sans), Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -323,7 +323,7 @@ export default function ProjectsSection() {
   const thumbB = PROJECTS[(index + 2) % PROJECTS.length];
 
   return (
-    <section ref={sectionRef} className={styles.projects} aria-label="Projects">
+    <section ref={sectionRef} className={styles.projects} aria-label="Projects" data-header-dark>
       <div ref={ghostClipRef} className={styles.ghostClip} style={{ opacity: trans ? 1 : 0 }}>
         <div ref={oldGhostRef} className={styles.ghost}>
           <Media project={trans ? PROJECTS[trans.from] : project} big />
