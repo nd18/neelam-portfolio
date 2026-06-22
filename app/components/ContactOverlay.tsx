@@ -90,17 +90,20 @@ export default function ContactOverlay({ isOpen, onClose }: Props) {
     <div className={styles.contactOverlay}>
       <div ref={panelRef} className={styles.contactGreenPanel}>
         <div className={styles.contactContent}>
-          <p className={styles.contactLabel}>Contact</p>
+          <p className={styles.contactLabel}>Book a call</p>
           <Link href="/contact" className={styles.contactHeading}>
-            <span className={styles.headingLine}>Got a project</span>
-            <span className={styles.headingLine}>in mind?</span>
+            <span className={styles.headingLine}>Book a free</span>
+            <span className={styles.headingLine}>intro call</span>
           </Link>
           <p className={styles.contactSub}>
-            We'll get you started <br /> or help you dream bigger
+            I&apos;ll walk through your store, what&apos;s blocking revenue,
+            and what I&apos;d fix first.
           </p>
-          <a href="mailto:neel.malaviya18@gmail.com" className={styles.contactEmail}>
-            neel.malaviya18@gmail.com
-          </a>
+          <ul className={styles.contactProof}>
+            <li><strong>30% revenue growth</strong> — Cerascreen, 8 Shopify storefronts</li>
+            <li><strong>20% revenue lift in 2 months</strong> — HiGRID Sleep, Shopify Plus</li>
+            <li><strong>20+ projects delivered</strong> — Shopify &amp; WordPress</li>
+          </ul>
         </div>
       </div>
     </div>

@@ -49,9 +49,9 @@
 
 
 /* ── Center card ───────────────────────────────────────────────── */
-/* fixed so it stays viewport-centered regardless of DOM parent */
+/* centered in .hero (100vh), scrolls away with it */
 .cardWrapper {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -114,31 +114,43 @@
 
 /* ── Navigation ────────────────────────────────────────────────── */
 .nav {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  /* only the CTA is in flow now — push it to the right; logo is centered absolutely */
+  justify-content: flex-end;
   /* own font so the header looks identical outside .hero (e.g. /contact) */
   font-family: var(--font-geist-sans), Arial, sans-serif;
-  /* padding: 0 36px; */
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* fades out (transparent) once scrolled away from the top */
+.navHidden {
+  opacity: 0;
+  transform: translateY(-16px);
+  pointer-events: none;
 }
 
 .menuBtn,
 .ctaBtn {
   will-change: transform;
+  transform-style: preserve-3d;
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #c2ff3a;
+  background: #e0ff98;
   border: none;
-  padding: 20px 40px;
-  font-size: 12px;
+  padding: 14px 28px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
   cursor: pointer;
-  color: #101417;
+  color: #1E1E1E;
   font-family: inherit;
   line-height: 1;
   white-space: nowrap;
@@ -154,7 +166,7 @@
 .ctaBtn:hover,
 .ctaBtn:focus,
 .ctaBtn:active {
-  background: #c2ff3a;
+  background: #e0ff98;
   outline: none;
 }
 
@@ -178,7 +190,7 @@
   display: block;
   width: 100%;
   height: 1.5px;
-  background: #101417;
+  background: #1E1E1E;
   border-radius: 2px;
 }
 
@@ -187,12 +199,17 @@
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #101417;
+  color: #1E1E1E;
 }
 
 .navLogo {
   display: flex;
   align-items: center;
+  /* centered in the header regardless of the CTA on the right */
+  position: absolute;
+  left: 50%;
+  top: 8px;
+  transform: translateX(-50%);
 }
 
 .navLogo img {
@@ -225,7 +242,7 @@
   font-size: clamp(22px, 2vw, 34px);
   font-weight: 800;
   line-height: 1.1;
-  color: #101417;
+  color: #1E1E1E;
   letter-spacing: -0.03em;
 }
 
@@ -276,7 +293,7 @@
 .contactGreenPanel {
   position: absolute;
   inset: 0;
-  background: #c2ff3a;
+  background: #e0ff98;
   will-change: clip-path;
   pointer-events: all;
 }
@@ -285,9 +302,9 @@
 .contactContent {
   position: absolute;
   left: 62%;
-  top: 38%;
+  top: 32%;
   max-width: 380px;
-  color: #101417;
+  color: #1E1E1E;
   pointer-events: all;
 }
 
@@ -296,9 +313,9 @@
   font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
-  color: #101417;
+  color: #1E1E1E;
   opacity: 0.85;
-  margin: 0 0 14px 0;
+  margin: 0 0 10px 0;
 }
 
 .contactHeading {
@@ -306,8 +323,8 @@
   font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.03em;
-  color: #101417;
-  margin: 0 0 20px 0;
+  color: #1E1E1E;
+  margin: 0 0 14px 0;
   text-decoration: none;
   display: block;
   cursor: pointer;
@@ -327,7 +344,7 @@
   left: 0;
   width: 100%;
   height: 2.5px;
-  background: #101417;
+  background: #1E1E1E;
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.15s ease;
@@ -340,25 +357,25 @@
 
 .contactSub {
   font-size: clamp(14px, 1.2vw, 17px);
-  line-height: 1.65;
-  color: #101417;
+  line-height: 1.45;
+  color: #1E1E1E;
   opacity: 0.75;
-  margin: 0 0 28px 0;
+  margin: 0 0 18px 0;
 }
 
-.contactEmail {
-  display: inline-block;
-  font-size: 13px;
+.contactProof {
+  list-style: none;
+  margin: 0 0 18px 0;
+  padding: 0;
+  font-size: clamp(13px, 1.05vw, 15px);
+  line-height: 1.45;
+  color: #1E1E1E;
+  opacity: 0.85;
+}
+
+.contactProof strong {
   font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: lowercase;
-  color: #101417;
-  text-decoration: none;
-  border-bottom: 1.5px solid #101417;
-  padding-bottom: 2px;
 }
-
-.contactEmail:hover { opacity: 0.65; }
 
 /* ── ~1440 screens: heading and intro text start on the same line ── */
 @media (min-width: 1281px) and (max-width: 1536px) {
@@ -422,7 +439,7 @@
      never runs off the right edge of the screen */
   .contactContent {
     left: 52%;
-    top: 34%;
+    top: 28%;
     max-width: min(340px, 40vw);
   }
 
@@ -433,33 +450,21 @@
   .contactSub {
     font-size: 14px;
   }
-
-  .contactEmail {
-    font-size: 12px;
-  }
 }
 
 /* ── Phone (≤640): stacked layout + compact nav ──────────────────── */
 @media (max-width: 640px) {
 
-  /* Nav: logo left, icon-only hamburger right, no CTA */
-  .ctaBtn {
-    display: none;
-  }
-
-  .menuBtn {
-    order: 2;
-    border-radius: 0 0 0 16px;
-    padding: 16px 18px;
-    font-size: 11px;
-  }
-
-  .menuLabel {
-    display: none;
+  /* Nav: logo on the LEFT, Book a Call on the right */
+  .nav {
+    justify-content: space-between;
   }
 
   .navLogo {
-    order: 1;
+    position: static;
+    transform: none;
+    left: auto;
+    top: auto;
     margin-left: 16px;
   }
 
@@ -468,16 +473,32 @@
     height: 48px;
   }
 
-  /* Content: flex column — card is a real flex item in normal flow */
-  .content {
+  .ctaBtn {
+    padding: 16px 20px;
+    font-size: 11px;
+  }
+
+  /* Hero is a single flex column; .content unwraps so its children
+     (headline, subtext) sit in the same flow as the photo, letting us
+     order them: headline → photo → subtext */
+  .hero {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    padding: 20px 24px;
-    /* reserve room at the bottom so text never overlaps the big name */
-    padding-bottom: clamp(80px, 26vw, 180px);
-    height: calc(100vh - 52px);
-    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    /* bigger bottom reserve shifts the whole stack up, clear of the big name */
+    padding: 90px 24px clamp(150px, 40vw, 230px);
+  }
+
+  .content {
+    display: contents;
+  }
+
+  .leftText {
+    order: 1;
+    position: relative;
+    z-index: 5;
   }
 
   .leftText h1 {
@@ -487,8 +508,9 @@
     text-align: center;
   }
 
-  /* card in normal flow — fixed positioning overridden */
+  /* photo in the middle of the stack */
   .cardWrapper {
+    order: 2;
     position: relative;
     top: auto;
     left: auto;
@@ -499,11 +521,14 @@
   }
 
   .card {
-    width: min(320px, calc(100vw - 56px));
-    height: 230px;
+    width: min(290px, calc(100vw - 72px));
+    height: 185px;
   }
 
   .rightText {
+    order: 3;
+    position: relative;
+    z-index: 5;
     max-width: 100%;
     margin: 0 auto;
     font-size: 13px;
