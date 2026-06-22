@@ -1,0 +1,332 @@
+/* ── Projects section: dark carousel ─────────────────────────────── */
+.projects {
+  position: relative;
+  z-index: 30;
+  min-height: 100vh;
+  background: #1e1e1e;
+  color: #f2efe9;
+  padding: 140px 48px 90px;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+.inner {
+  max-width: 1560px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(0, 2.4fr) minmax(0, 2fr);
+  gap: 48px;
+}
+
+.sectionLabel {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(16px, 1.4vw, 21px);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: #f2efe9;
+  opacity: 0.95;
+  margin: 0;
+  max-width: 7em;
+}
+
+/* ── middle column: featured visual + title ── */
+.featured {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.featuredMedia {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 14px;
+  overflow: hidden;
+  /* matches the section so letterbox bars blend in invisibly */
+  background: #1e1e1e;
+}
+
+/* clips the flying media to the featured slot so the transition never
+   overflows into the thumbnail strip (no stray "ghost" over the thumbnails) */
+.ghostClip {
+  position: absolute;
+  z-index: 5;
+  overflow: hidden;
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+/* flying copies of old/new media; fill the clip, slide horizontally */
+.ghost {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+/* clips the title so it can slide up into view */
+.titleMask {
+  overflow: hidden;
+}
+
+/* stacks the outgoing text with the incoming (next project) overlay */
+.textBlock {
+  position: relative;
+}
+
+.incomingLayer {
+  position: absolute;
+  inset: 0;
+}
+
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(20px, 2.2vw, 36px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.title {
+  font-size: clamp(20px, 1.9vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  /* reserve 2 lines so the section height (and the pager) never shifts */
+  min-height: 2.2em;
+  margin: 0 0 28px 0;
+}
+
+.tags {
+  display: flex;
+  gap: 28px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* ── right column: thumbs, pager, description ── */
+.side {
+  display: flex;
+  flex-direction: column;
+}
+
+.descBlock {
+  position: relative;
+}
+
+/* desktop: unwrap so viewBtn + pager order independently in the side column */
+.controls {
+  display: contents;
+}
+
+/* desktop column order: thumbs → pager → description → View Project */
+.thumbs { order: 1; }
+.pager { order: 2; }
+.descBlock { order: 3; }
+.viewBtn { order: 4; }
+
+.thumbs {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 500px;
+}
+
+/* third thumbnail that glides in from the right during a next-transition,
+   so the strip never shows an empty slot */
+.thumbIncoming {
+  position: absolute;
+  top: 0;
+  left: calc(50% + 10px);
+  width: calc(50% - 10px);
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: #1e1e1e;
+  will-change: transform;
+}
+
+.thumb .placeholder {
+  font-size: clamp(16px, 1.4vw, 24px);
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto 0 48px;
+  padding-top: 64px;
+}
+
+/* clips only the current slide number; the "/ 06" stays put */
+.countMask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.countCurrent {
+  display: inline-block;
+  will-change: transform;
+}
+
+.count {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  margin: 0;
+}
+
+.countTotal {
+  opacity: 0.6;
+  margin-left: 6px;
+}
+
+.arrows {
+  display: flex;
+  gap: 12px;
+}
+
+.arrowBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #f2efe9;
+  color: #1E1E1E;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* no grey "pressed"/focus state lingering after a click */
+.arrowBtn:hover,
+.arrowBtn:focus,
+.arrowBtn:focus-visible,
+.arrowBtn:active {
+  background-color: #f2efe9;
+  outline: none;
+}
+
+.desc {
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.55;
+  /* reserve space for 4 lines so the pager above never shifts between projects */
+  min-height: 6.2em;
+  margin: 0 0 32px 0;
+  opacity: 0.95;
+}
+
+.viewBtn {
+  display: inline-block;
+  align-self: flex-start;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #f2efe9;
+  color: #1E1E1E;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 14px 28px;
+  border-radius: 8px;
+  text-decoration: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ── tablet / mobile ── */
+@media (max-width: 1024px) {
+  .projects {
+    padding: 110px 24px 70px;
+  }
+
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .thumbs {
+    display: none;
+  }
+
+  /* bottom control bar: View Project (left) · counter + arrows (right) */
+  .descBlock {
+    order: 1;
+  }
+
+  /* drop the reserved 4-line height on mobile so there's no empty gap */
+  .desc {
+    min-height: 0;
+    margin-bottom: 0;
+  }
+
+  .controls {
+    display: flex;
+    order: 2;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .viewBtn {
+    order: 1;
+    align-self: center;
+  }
+
+  .pager {
+    order: 2;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    gap: 16px;
+    margin: 0;
+    padding-top: 0;
+  }
+
+  .arrows {
+    gap: 8px;
+  }
+
+  .arrowBtn {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+  }
+
+  .featured {
+    gap: 32px;
+  }
+
+  .title {
+    margin-bottom: 18px;
+  }
+}

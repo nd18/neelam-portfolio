@@ -1,0 +1,44 @@
+/* ── About section: purple curtain that scrolls over the hero ───── */
+.about {
+  position: relative;
+  z-index: 30;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 24px;
+  background: #e0ff98;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+.statement {
+  max-width: 1280px;
+  margin: 0;
+  text-align: center;
+  font-size: clamp(38px, 6.5vw, 104px);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: #1E1E1E;
+}
+
+/* each line clips its inner span so it can slide up into view */
+.line {
+  display: block;
+  overflow: hidden;
+}
+
+.lineInner {
+  display: inline-block;
+  will-change: transform;
+}
+
+@media (max-width: 640px) {
+  .about {
+    padding: 80px 20px;
+  }
+
+  .statement {
+    font-size: clamp(30px, 9vw, 44px);
+  }
+}

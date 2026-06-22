@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -7,14 +7,10 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
-  title: "By Niel — Portfolio",
-  description: "Portfolio of Niel — crafting world-class digital experiences.",
+  title: "Neelam Malaviya — Shopify & WordPress Developer",
+  description:
+    "Portfolio of Neelam Malaviya — senior Shopify & WordPress developer building high-converting e-commerce stores and custom CMS solutions.",
 };
 
 export default function RootLayout({
@@ -23,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en" className={geistSans.variable}>
       <body>{children}</body>
     </html>
   );
