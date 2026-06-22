@@ -30,8 +30,15 @@ desktop.ini
 .vscode/
 .idea/
 
-# claude code local settings
-.claude/settings.local.json
+# claude / ai assistant files
+.claude/
+CLAUDE.md
+AGENTS.md
+.mcp.json
+.cursor/
+.cursorrules
+.windsurfrules
+.github/copilot-instructions.md
 
 # debug
 npm-debug.log*
