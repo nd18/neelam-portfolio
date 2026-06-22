@@ -8,8 +8,9 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "By Niel — Portfolio",
-  description: "Portfolio of Niel — crafting world-class digital experiences.",
+  title: "Neelam Malaviya — Shopify & WordPress Developer",
+  description:
+    "Portfolio of Neelam Malaviya — senior Shopify & WordPress developer building high-converting e-commerce stores and custom CMS solutions.",
 };
 
 export default function RootLayout({

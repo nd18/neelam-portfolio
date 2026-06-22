@@ -345,14 +345,15 @@
   width: 100%;
   height: 2.5px;
   background: #1E1E1E;
-  transform: scaleX(0);
+  /* always visible so it's obvious the heading is a clickable link */
+  transform: scaleX(1);
   transform-origin: left center;
-  transition: transform 0.15s ease;
+  transition: height 0.2s ease, opacity 0.2s ease;
 }
 
+/* hover: thicken the underline a touch for feedback */
 .contactHeading:hover .headingLine::after {
-  transform: scaleX(1);
-  transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 4px;
 }
 
 .contactSub {
@@ -544,6 +545,27 @@
   .bigTextLit {
     font-size: 14vw;
     bottom: -1vw;
+  }
+
+  /* Contact overlay: full-screen panel, content uses normal padding so
+     nothing is clipped by a diagonal cone */
+  .contactContent {
+    left: 28px;
+    right: 28px;
+    top: 110px;
+    max-width: none;
+  }
+
+  .contactHeading {
+    font-size: clamp(30px, 9vw, 40px);
+  }
+
+  .contactSub {
+    font-size: 14px;
+  }
+
+  .contactProof {
+    font-size: 13px;
   }
 }
 

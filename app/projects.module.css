@@ -116,6 +116,21 @@
   flex-direction: column;
 }
 
+.descBlock {
+  position: relative;
+}
+
+/* desktop: unwrap so viewBtn + pager order independently in the side column */
+.controls {
+  display: contents;
+}
+
+/* desktop column order: thumbs → pager → description → View Project */
+.thumbs { order: 1; }
+.pager { order: 2; }
+.descBlock { order: 3; }
+.viewBtn { order: 4; }
+
 .thumbs {
   position: relative;
   display: grid;
@@ -263,9 +278,48 @@
     display: none;
   }
 
+  /* bottom control bar: View Project (left) · counter + arrows (right) */
+  .descBlock {
+    order: 1;
+  }
+
+  /* drop the reserved 4-line height on mobile so there's no empty gap */
+  .desc {
+    min-height: 0;
+    margin-bottom: 0;
+  }
+
+  .controls {
+    display: flex;
+    order: 2;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .viewBtn {
+    order: 1;
+    align-self: center;
+  }
+
   .pager {
+    order: 2;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    gap: 16px;
     margin: 0;
     padding-top: 0;
+  }
+
+  .arrows {
+    gap: 8px;
+  }
+
+  .arrowBtn {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
   }
 
   .featured {

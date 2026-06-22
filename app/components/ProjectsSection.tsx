@@ -385,36 +385,36 @@ export default function ProjectsSection() {
             )}
           </div>
 
-          <div className={styles.pager}>
-            <p className={styles.count}>
-              <span className={styles.countMask}>
-                <span ref={countRef} className={styles.countCurrent}>
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-              </span>
-              {' '}/
-              <span className={styles.countTotal}>
-                {String(PROJECTS.length).padStart(2, '0')}
-              </span>
-            </p>
-            <div className={styles.arrows}>
-              <TiltButton className={styles.arrowBtn} onClick={() => go(-1)} ariaLabel="Previous project">←</TiltButton>
-              <TiltButton className={styles.arrowBtn} onClick={() => go(1)} ariaLabel="Next project">→</TiltButton>
-            </div>
+          <div className={styles.descBlock}>
+            <p ref={descRef} className={styles.desc}>{project.desc}</p>
+            {incoming && (
+              <p ref={inDescRef} className={`${styles.desc} ${styles.incomingLayer}`}>
+                {incoming.desc}
+              </p>
+            )}
           </div>
 
-          <div>
-            <div className={styles.textBlock}>
-              <p ref={descRef} className={styles.desc}>{project.desc}</p>
-              {incoming && (
-                <p ref={inDescRef} className={`${styles.desc} ${styles.incomingLayer}`}>
-                  {incoming.desc}
-                </p>
-              )}
-            </div>
+          <div className={styles.controls}>
             <TiltButton className={styles.viewBtn} href={project.url} target="_blank" rel="noopener noreferrer">
               View Project
             </TiltButton>
+            <div className={styles.pager}>
+              <p className={styles.count}>
+                <span className={styles.countMask}>
+                  <span ref={countRef} className={styles.countCurrent}>
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </span>
+                {' '}/
+                <span className={styles.countTotal}>
+                  {String(PROJECTS.length).padStart(2, '0')}
+                </span>
+              </p>
+              <div className={styles.arrows}>
+                <TiltButton className={styles.arrowBtn} onClick={() => go(-1)} ariaLabel="Previous project">←</TiltButton>
+                <TiltButton className={styles.arrowBtn} onClick={() => go(1)} ariaLabel="Next project">→</TiltButton>
+              </div>
+            </div>
           </div>
         </div>
       </div>
