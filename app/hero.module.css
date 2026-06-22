@@ -125,14 +125,15 @@
   justify-content: flex-end;
   /* own font so the header looks identical outside .hero (e.g. /contact) */
   font-family: var(--font-geist-sans), Arial, sans-serif;
-  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* fades out (transparent) once scrolled away from the top */
-.navHidden {
-  opacity: 0;
-  transform: translateY(-16px);
-  pointer-events: none;
+/* over a dark section the dark logo flips to light so it stays visible */
+.navLogo img {
+  transition: filter 0.3s ease;
+}
+
+.navDark .navLogo img {
+  filter: invert(1) brightness(1.7);
 }
 
 .menuBtn,
