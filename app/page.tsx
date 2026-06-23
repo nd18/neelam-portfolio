@@ -5,6 +5,7 @@ import ProjectCard from "./components/ProjectCard";
 import AboutSection from "./components/AboutSection";
 import ProjectsSection from "./components/ProjectsSection";
 import ProcessSection from "./components/ProcessSection";
+import ReviewsSection from "./components/ReviewsSection";
 
 export default function Home() {
   return (
@@ -43,6 +44,7 @@ export default function Home() {
       <AboutSection />
       <ProjectsSection />
       <ProcessSection />
+      <ReviewsSection />
     </main>
   );
 }

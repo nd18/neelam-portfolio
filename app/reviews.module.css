@@ -1,0 +1,200 @@
+/* ── Reviews: white parallelogram "beam" sliding over a fixed purple base ── */
+.reviews {
+  position: relative;
+  z-index: 30;
+  min-height: 100vh;
+  /* purple base — fixed, always covers the whole section */
+  background: #c490cc;
+  color: #1e1e1e;
+  overflow: hidden;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+/* cream beam — revealed on scroll as a symmetric wedge (base on the left,
+   tapering to a point on the right) growing over the purple base */
+.beam {
+  position: absolute;
+  inset: 0;
+  background: #ede8df;
+  overflow: hidden;
+  will-change: clip-path;
+  /* start hidden (no-JS-safe-ish); JS grows the wedge on scroll */
+  clip-path: polygon(0% 50%, 0% 50%, 0% 50%);
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* generous left/right padding so content clears the slanted edges */
+  padding: 96px clamp(48px, 8vw, 130px) 40px;
+  will-change: transform, opacity;
+}
+
+/* metadata row */
+.metaRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  padding-top: 24px;
+}
+
+.metaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.metaLabel {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(30, 30, 30, 0.55);
+}
+
+.metaValue {
+  font-size: clamp(18px, 1.6vw, 20px);
+  font-weight: 400;
+}
+
+/* quote block */
+.body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 100px;
+  padding: 40px 0;
+}
+
+.quote {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(20px, 3.4vw, 36px);
+  line-height: 1.14;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.attribution {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.who {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.role {
+  font-size: clamp(16px, 1.3vw, 20px);
+}
+
+.company {
+  font-size: 15px;
+  color: rgba(30, 30, 30, 0.65);
+}
+
+.logo {
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.024rem;
+}
+
+.avatar {
+  flex: 0 0 auto;
+  width: clamp(72px, 8vw, 116px);
+  height: clamp(72px, 8vw, 116px);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #d8d2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 800;
+  color: #5a52c4;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* footer controls */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.arrows {
+  display: flex;
+  gap: 10px;
+}
+
+.arrowBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: none;
+  background: #1e1e1e;
+  color: #efe9dd;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.2s ease;
+}
+
+.arrowBtn:hover { opacity: 0.82; }
+
+.count {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.countTotal { opacity: 0.55; margin-left: 4px; }
+
+/* ── mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .inner {
+    padding: 96px 22px 32px;
+  }
+
+  .metaRow {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 16px;
+  }
+
+  .body {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 32px 0;
+  }
+
+  .attribution {
+    flex-wrap: wrap;
+  }
+
+  .controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
