@@ -6,6 +6,7 @@ import AboutSection from "./components/AboutSection";
 import ProjectsSection from "./components/ProjectsSection";
 import ProcessSection from "./components/ProcessSection";
 import ReviewsSection from "./components/ReviewsSection";
+import HeroIntro from "./components/HeroIntro";
 
 export default function Home() {
   return (
@@ -21,24 +22,7 @@ export default function Home() {
 
         <ProjectCard />
 
-        <section className={styles.content}>
-          <div className={styles.leftText}>
-            <h1>
-              Shopify Stores &amp;<br />
-              B2B Websites<br />
-              That Drive Revenue
-            </h1>
-          </div>
-
-          <p className={styles.rightText}>
-            Senior e-commerce developer with 7+ years delivering custom Shopify
-            Plus themes, Liquid development and WordPress CMS builds.
-            <br />
-            Clients like Cerascreen saw 30% revenue growth.
-            <br />
-            <span className={styles.highlight}>Available remote, worldwide.</span>
-          </p>
-        </section>
+        <HeroIntro />
       </section>
 
       <AboutSection />

@@ -81,16 +81,21 @@ export default function ContactOverlay({ isOpen, onClose }: Props) {
     const panel = panelRef.current!;
     gsap.killTweensOf(panel);
 
-    const isMobile = window.innerWidth <= 640;
+    const w = window.innerWidth;
+    const isMobile = w <= 640;
+    const isTablet = w > 640 && w <= 1024;
     const { left, right, bottom } = getButtonRect();
     // 5-point polygon so GSAP can interpolate between CLOSED and OPEN
     // CLOSED: flat button rectangle (all 5 pts collapsed to button boundary)
     const CLOSED = `polygon(${left}% 0%, ${right}% 0%, ${right}% ${bottom}%, ${left}% ${bottom}%, ${left}% ${bottom}%)`;
-    // OPEN: desktop fans out into a diagonal cone; mobile fills the screen so
-    // the content never gets clipped by the narrow triangle
+    // OPEN: desktop fans out into a diagonal cone whose apex reaches the very
+    // top-right CORNER; tablet keeps the diagonal but its right edge stays FULL
+    // (100%) so the content never gets clipped; mobile fills the screen
     const OPEN = isMobile
       ? `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 100%)`
-      : `polygon(${left}% 0%, ${right}% 0%, ${right}% ${bottom}%, 82% 100%, 0% 100%)`;
+      : isTablet
+      ? `polygon(${left}% 0%, 100% 0%, 100% ${bottom}%, 86% 100%, 0% 100%)`
+      : `polygon(${left}% 0%, 100% 0%, 100% ${bottom}%, 82% 100%, 0% 100%)`;
 
     if (isOpen) {
       gsap.fromTo(panel,
@@ -115,8 +120,9 @@ export default function ContactOverlay({ isOpen, onClose }: Props) {
 
   useEffect(() => {
     if (!mounted) return;
-    // no cursor parallax on mobile (full-screen panel, no pointer)
-    if (window.innerWidth <= 640) return;
+    // no cursor parallax on mobile/tablet (the beam there isn't the narrow cone,
+    // and re-narrowing it would clip the content)
+    if (window.innerWidth <= 1024) return;
     const panel = panelRef.current!;
     const { left, right, bottom } = getButtonRect();
     // Simple linear offset: both bottom vertices shift left together
@@ -130,7 +136,7 @@ export default function ContactOverlay({ isOpen, onClose }: Props) {
       const raw    = (mx - 60) * 0.4;
       const offset = Math.max(-28, Math.min(0, raw)); // only leftward, max −28%
 
-      const newClip = `polygon(${left}% 0%, ${right}% 0%, ${right}% ${bottom}%, ${BASE_RIGHT + offset}% 100%, ${BASE_LEFT + offset}% 100%)`;
+      const newClip = `polygon(${left}% 0%, 100% 0%, 100% ${bottom}%, ${BASE_RIGHT + offset}% 100%, ${BASE_LEFT + offset}% 100%)`;
       gsap.to(panel, { clipPath: newClip, duration: 1.2, ease: 'sine.out' });
     };
 

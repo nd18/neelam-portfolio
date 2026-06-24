@@ -28,8 +28,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* generous left/right padding so content clears the slanted edges */
-  padding: 96px clamp(48px, 8vw, 130px) 40px;
+  /* shared page padding → content edges line up with the hero & other sections */
+  padding: 96px var(--page-px) 40px;
   will-change: transform, opacity;
 }
 
@@ -71,9 +71,10 @@
 }
 
 .quote {
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(20px, 3.4vw, 36px);
-  line-height: 1.14;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-size: clamp(16px, 1.9vw, 25px);
+  font-weight: 400;
+  line-height: 1.32;
   letter-spacing: -0.01em;
   margin: 0;
 }
@@ -92,7 +93,7 @@
 }
 
 .role {
-  font-size: clamp(16px, 1.3vw, 20px);
+  font-size: clamp(13px, 1vw, 15px);
 }
 
 .company {
@@ -101,12 +102,13 @@
 }
 
 .logo {
-  font-size: clamp(20px, 2vw, 30px);
+  font-size: clamp(16px, 1.5vw, 22px);
   font-weight: 600;
-  letter-spacing: -0.024rem;
+  letter-spacing: -0.02em;
 }
 
 .avatar {
+  position: relative;
   flex: 0 0 auto;
   width: clamp(72px, 8vw, 116px);
   height: clamp(72px, 8vw, 116px);
@@ -116,12 +118,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.avatarInitial {
   font-size: 26px;
   font-weight: 800;
   color: #5a52c4;
 }
 
-.avatar img {
+/* photo sits over the initial; if it fails to load it hides → initial shows */
+.avatarImg {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -147,29 +155,54 @@
 }
 
 .arrowBtn {
-  width: 44px;
-  height: 44px;
+  width: 35px;
+  height: 35px;
   border-radius: 8px;
   border: none;
-  background: #1e1e1e;
-  color: #efe9dd;
-  font-size: 18px;
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #1e1e1e;
+  color: #ede8df;
+  font-size: 14px;
   line-height: 1;
   cursor: pointer;
   outline: none;
   -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.2s ease;
+  /* 3D tilt-on-hover (same interaction as the portfolio arrows) */
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
-.arrowBtn:hover { opacity: 0.82; }
+/* no grey pressed/focus state lingering after a click */
+.arrowBtn:hover,
+.arrowBtn:focus,
+.arrowBtn:focus-visible,
+.arrowBtn:active {
+  background-color: #1e1e1e;
+  outline: none;
+}
 
 .count {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.1em;
+  line-height: 1;
+  margin: 0;
 }
 
-.countTotal { opacity: 0.55; margin-left: 4px; }
+/* current number rolls vertically inside this clipped mask */
+.countMask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.countCurrent {
+  display: inline-block;
+  will-change: transform;
+}
+
+.countTotal { opacity: 0.55; margin-left: 6px; }
 
 /* ── mobile ─────────────────────────────────────────────────────── */
 @media (max-width: 900px) {

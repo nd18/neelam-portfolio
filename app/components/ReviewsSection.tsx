@@ -2,12 +2,15 @@
 import { useRef, useState, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
+import TiltButton from './TiltButton';
 import styles from '../reviews.module.css';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 interface Review {
   quote: string;
+  name: string;
   role: string;
   company: string;
   logo: string;
@@ -18,62 +21,62 @@ interface Review {
 
 const REVIEWS: Review[] = [
   {
-    quote: 'Neelam refactored our eight storefronts into one clean design system. Revenue grew 30% and our team finally enjoys working in the theme.',
-    role: 'E-commerce Lead',
+    quote:
+      'Neelam has done an outstanding job. She was highly reliable, always responded promptly, and her documentation consistently exceeded expectations. She brought great clarity to projects and delivered exactly what was discussed—often going above and beyond by thinking one step ahead. With fast and straightforward communication, she created excellent code and developed impressive features for our website. I truly valued working with her and can highly recommend her as a colleague.',
+    role: 'Team Lead',
     company: 'Cerascreen',
     logo: 'cerascreen',
+    photo: '/reviews/antonia.jpg',
+    name: 'Antonia Bayer',
     meta: [
-      { label: 'Result', value: '+30% revenue' },
-      { label: 'Platform', value: 'Shopify Plus' },
-      { label: 'Scope', value: '8 storefronts' },
+      { label: 'Result', value: 'Above & beyond' },
+      { label: 'Platform', value: 'Shopify' },
+      { label: 'Scope', value: 'Website features' },
       { label: 'Location', value: 'Germany' },
     ],
   },
   {
-    quote: 'The custom product page lifted our revenue 20% within two months of launch. Neelam just gets conversion.',
-    role: 'Founder',
-    company: 'HiGRID Sleep',
-    logo: 'higrid',
-    meta: [
-      { label: 'Result', value: '+20% in 2 months' },
-      { label: 'Platform', value: 'Shopify Plus' },
-      { label: 'Scope', value: 'Custom PDP' },
-      { label: 'Location', value: 'United Kingdom' },
-    ],
-  },
-  {
-    quote: 'Our storefront finally feels as premium as our products. Sliders, reviews and email flows all just work.',
+    quote:
+      "We have been working with Neelam since August 2022 and it's been such a pleasure! She helps our agency with a number of custom development projects, from WordPress to Shopify sites and is always on time with great communication throughout the process. I would highly recommend working with Neelam.",
     role: 'Brand Manager',
-    company: 'ShisenFox',
-    logo: 'shisenfox',
+    company: 'The Sleep Company',
+    logo: 'sleepcompany',
+    photo: '/reviews/niki.jpg',
+    name: 'Niki Khandelwal',
     meta: [
-      { label: 'Result', value: 'Higher AOV' },
+      { label: 'Since', value: 'August 2022' },
+      { label: 'Platform', value: 'Shopify + WordPress' },
+      { label: 'Scope', value: 'Custom development' },
+      { label: 'Engagement', value: 'Ongoing' },
+    ],
+  },
+  {
+    quote:
+      'Neelam came up with a scalable, custom solution for Shopify collection filters. Her scripts work like a charm and she completed this job fairly quickly. She is responsible and a very reliable professional. We switched from one-off projects to a long-term collaboration.',
+    role: 'Digital Product Head',
+    company: 'Cerascreen',
+    logo: 'cerascreen',
+    photo: '/reviews/maksim.jpg',
+    name: 'Maksim Micheliov',
+    meta: [
+      { label: 'Result', value: 'Long-term collab' },
       { label: 'Platform', value: 'Shopify' },
-      { label: 'Scope', value: 'Theme + Klaviyo' },
+      { label: 'Scope', value: 'Collection filters' },
       { label: 'Location', value: 'Germany' },
     ],
   },
   {
-    quote: 'Neelam turned our Figma into a pixel-perfect WordPress theme our team can actually manage. A real pleasure to work with.',
-    role: 'Creative Director',
-    company: 'Studio Forge',
-    logo: 'studioforge',
+    quote:
+      'Cannot speak more highly of the work Neelam carried out. She showed a solid understanding of the brief, developed an intelligent, creative and well thought-out set of mockups, delivered on time and on budget.',
+    role: 'IT Director',
+    company: 'Guppy Moms',
+    logo: 'guppymoms',
+    photo: '/reviews/atul.jpg',
+    name: 'Atul Ahuwalia',
     meta: [
-      { label: 'Result', value: 'Pixel-perfect build' },
-      { label: 'Platform', value: 'WordPress' },
-      { label: 'Scope', value: 'Figma → theme' },
-      { label: 'Location', value: 'India' },
-    ],
-  },
-  {
-    quote: 'We replaced a paid store-locator app with a custom Shopify solution — faster, fully branded, and no more monthly fees.',
-    role: 'Operations Lead',
-    company: 'Beyond Appliances',
-    logo: 'beyond',
-    meta: [
-      { label: 'Result', value: 'Zero app fees' },
-      { label: 'Platform', value: 'Shopify' },
-      { label: 'Scope', value: 'Custom locator' },
+      { label: 'Result', value: 'On time & on budget' },
+      { label: 'Scope', value: 'Design + mockups' },
+      { label: 'Delivery', value: 'On schedule' },
       { label: 'Location', value: 'India' },
     ],
   },
@@ -86,7 +89,10 @@ function go(i: number, dir: 1 | -1) {
 export default function ReviewsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const beamRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
+  const quoteRef = useRef<HTMLQuoteElement>(null);
+  const metaRef = useRef<HTMLDivElement>(null);
+  const attrRef = useRef<HTMLDivElement>(null);
+  const countRef = useRef<HTMLSpanElement>(null);
   const dirRef = useRef<1 | -1>(1);
   const animatingRef = useRef(false);
   const [index, setIndex] = useState(0);
@@ -121,65 +127,114 @@ export default function ReviewsSection() {
       };
       apply();
 
-      // pin the section so it has room to open SLOWLY after it's fully in view.
-      // The growing wedge itself uncovers the (static) content in sequence —
-      // quote in the centre first, then meta at the top, controls at the bottom.
+      const ENTRY = 0.35; // how far the beam opens during the scroll-in
+
+      // Phase A — entrance (NOT pinned): the beam already starts opening slowly
+      // as the section scrolls up into view.
       gsap.to(prog, {
-        t: 1,
+        t: ENTRY,
         ease: 'none',
         onUpdate: apply,
         scrollTrigger: {
           trigger: section,
-          start: 'top top',
-          end: '+=150%',
-          pin: true,
-          scrub: 1,
-          anticipatePin: 1,
+          start: 'top bottom',
+          end: 'top top',
+          scrub: 1, // same smoothing as phase B → no hitch at the hand-off
           invalidateOnRefresh: true,
         },
       });
+
+      // Phase B — pinned: finish opening + sweep purple off the right → full cream.
+      gsap.fromTo(
+        prog,
+        { t: ENTRY },
+        {
+          t: 1,
+          ease: 'none',
+          immediateRender: false, // don't snap to ENTRY before phase A is done
+          onUpdate: apply,
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: '+=150%',
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
     }, section);
 
     return () => ctx.revert();
   }, []);
 
-  // horizontal slider: the white beam's content travels across the screen on
-  // each slide change. The beam's angled (parallelogram) edges turn that
-  // horizontal travel into a diagonal wipe over the fixed purple background.
+  // slide change: the quote reveals line-by-line (same as the portfolio
+  // description) — old lines slide up & out, then new lines slide up into view.
   const change = (dir: 1 | -1) => {
     if (animatingRef.current) return;
     animatingRef.current = true;
     dirRef.current = dir;
-    gsap.to(innerRef.current, {
-      xPercent: -100 * dir,
-      autoAlpha: 0,
-      duration: 0.32,
+    const split = new SplitText(quoteRef.current, { type: 'lines', mask: 'lines' });
+    gsap.to(split.lines, {
+      yPercent: -110,
+      duration: 0.4,
       ease: 'power2.in',
-      onComplete: () => setIndex((i) => go(i, dir)),
+      stagger: 0.04,
+      onComplete: () => {
+        split.revert();
+        setIndex((i) => go(i, dir));
+      },
     });
+    gsap.to([metaRef.current, attrRef.current], {
+      autoAlpha: 0, y: -12, duration: 0.3, ease: 'power2.in',
+    });
+    // current slide number rolls up out through its mask (total stays put)
+    gsap.to(countRef.current, { yPercent: -110, duration: 0.3, ease: 'power2.in' });
   };
 
-  // re-entry on slide change: new content slides in from the opposite side.
-  // Skip the very first mount — initial reveal is driven by the scroll timeline.
+  // intro: the FIRST time the section scrolls into view, the quote reveals
+  // line-by-line (masked rise) — same feel as the About statement.
+  useLayoutEffect(() => {
+    const split = new SplitText(quoteRef.current, { type: 'lines', mask: 'lines' });
+    gsap.set(split.lines, { yPercent: 110 });
+    const tween = gsap.to(split.lines, {
+      yPercent: 0,
+      duration: 0.9,
+      ease: 'power4.out',
+      stagger: 0.12,
+      scrollTrigger: { trigger: sectionRef.current, start: 'top 55%' },
+      onComplete: () => split.revert(),
+    });
+    return () => {
+      tween.scrollTrigger?.kill();
+      tween.kill();
+      split.revert();
+    };
+  }, []);
+
+  // re-entry on slide change: new quote lines rise into view (masked stagger).
+  // Skip the very first mount — initial reveal is driven by the scroll beam.
   const mountedRef = useRef(false);
   useLayoutEffect(() => {
     if (!mountedRef.current) {
       mountedRef.current = true;
       return;
     }
-    const dir = dirRef.current;
-    const tween = gsap.fromTo(
-      innerRef.current,
-      { xPercent: 100 * dir, autoAlpha: 0 },
-      {
-        xPercent: 0,
-        autoAlpha: 1,
-        duration: 0.45,
-        ease: 'power2.out',
-        onComplete: () => { animatingRef.current = false; },
-      }
-    );
-    return () => { tween.kill(); };
+    const split = new SplitText(quoteRef.current, { type: 'lines', mask: 'lines' });
+    gsap.set(split.lines, { yPercent: 110 });
+    const tl = gsap.timeline({
+      onComplete: () => { split.revert(); animatingRef.current = false; },
+    });
+    tl.to(split.lines, { yPercent: 0, duration: 0.6, ease: 'power3.out', stagger: 0.05 }, 0)
+      .fromTo([metaRef.current, attrRef.current],
+        { autoAlpha: 0, y: 14 },
+        { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.1)
+      // new slide number rolls up into view through its mask
+      .fromTo(countRef.current,
+        { yPercent: 110 },
+        { yPercent: 0, duration: 0.45, ease: 'power3.out' }, 0.1);
+    return () => { tl.kill(); };
   }, [index]);
 
   const r = REVIEWS[index];
@@ -188,8 +243,8 @@ export default function ReviewsSection() {
     <section ref={sectionRef} className={styles.reviews} aria-label="Client reviews">
       {/* cream wedge beam revealed over the fixed purple base on scroll */}
       <div ref={beamRef} className={styles.beam}>
-        <div ref={innerRef} className={styles.inner}>
-          <div className={styles.metaRow}>
+        <div className={styles.inner}>
+          <div ref={metaRef} className={styles.metaRow}>
             {r.meta.map((m) => (
               <div key={m.label} className={styles.metaItem}>
                 <span className={styles.metaLabel}>{m.label}</span>
@@ -199,19 +254,24 @@ export default function ReviewsSection() {
           </div>
 
           <div className={styles.body}>
-            <blockquote className={styles.quote}>“{r.quote}”</blockquote>
+            <blockquote key={index} ref={quoteRef} className={styles.quote}>“{r.quote}”</blockquote>
 
-            <div className={styles.attribution}>
+            <div ref={attrRef} className={styles.attribution}>
               <div className={styles.who}>
-                <span className={styles.logo}>{r.company}</span>
-                <span className={styles.role}>{r.role}</span>
+                <span className={styles.logo}>{r.name}</span>
+                <span className={styles.role}>{r.role}, {r.company}</span>
               </div>
               <div className={styles.avatar}>
-                {r.photo ? (
+                <span className={styles.avatarInitial}>{r.name.charAt(0)}</span>
+                {r.photo && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={r.photo} alt={r.company} />
-                ) : (
-                  r.company.charAt(0)
+                  <img
+                    key={r.photo}
+                    className={styles.avatarImg}
+                    src={r.photo}
+                    alt=""
+                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                  />
                 )}
               </div>
             </div>
@@ -220,12 +280,19 @@ export default function ReviewsSection() {
           <div className={styles.controls}>
             <div className={styles.pager}>
               <div className={styles.arrows}>
-                <button className={styles.arrowBtn} onClick={() => change(-1)} aria-label="Previous review">←</button>
-                <button className={styles.arrowBtn} onClick={() => change(1)} aria-label="Next review">→</button>
+                <TiltButton className={styles.arrowBtn} onClick={() => change(-1)} ariaLabel="Previous review">←</TiltButton>
+                <TiltButton className={styles.arrowBtn} onClick={() => change(1)} ariaLabel="Next review">→</TiltButton>
               </div>
               <p className={styles.count}>
-                {String(index + 1).padStart(2, '0')}
-                <span className={styles.countTotal}>/ {String(REVIEWS.length).padStart(2, '0')}</span>
+                <span className={styles.countMask}>
+                  <span ref={countRef} className={styles.countCurrent}>
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </span>
+                {' '}/
+                <span className={styles.countTotal}>
+                  {String(REVIEWS.length).padStart(2, '0')}
+                </span>
               </p>
             </div>
          </div>
