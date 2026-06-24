@@ -20,6 +20,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={geistSans.variable}>
+      <head>
+        {/* always start at the top (hero) on reload — never restore scroll */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "if('scrollRestoration' in history){history.scrollRestoration='manual';}",
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

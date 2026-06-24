@@ -1,3 +1,9 @@
+:root {
+  /* shared horizontal page padding — keeps every section's content edges
+     aligned (matches the hero: 64px on desktop, smaller on mobile) */
+  --page-px: clamp(28px, 5vw, 64px);
+}
+
 *,
 *::before,
 *::after {

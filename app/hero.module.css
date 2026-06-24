@@ -358,7 +358,7 @@
 }
 
 .contactSub {
-  font-size: clamp(14px, 1.2vw, 17px);
+  font-size: clamp(12px, 0.95vw, 14px);
   line-height: 1.45;
   color: #1E1E1E;
   opacity: 0.75;
@@ -369,7 +369,7 @@
   list-style: none;
   margin: 0 0 18px 0;
   padding: 0;
-  font-size: clamp(13px, 1.05vw, 15px);
+  font-size: clamp(11px, 0.85vw, 13px);
   line-height: 1.45;
   color: #1E1E1E;
   opacity: 0.85;
@@ -437,12 +437,12 @@
     white-space: nowrap;
   }
 
-  /* contact overlay content — pulled left and narrowed so the email
-     never runs off the right edge of the screen */
+  /* contact overlay content — narrow & nudged into the beam so it clears the
+     top-left diagonal AND the narrowed bottom-right edge; text wraps to fit */
   .contactContent {
-    left: 52%;
-    top: 28%;
-    max-width: min(340px, 40vw);
+    left: 57%;
+    top: 34%;
+    max-width: min(250px, 33vw);
   }
 
   .contactHeading {
