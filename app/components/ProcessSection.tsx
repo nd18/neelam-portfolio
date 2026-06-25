@@ -30,13 +30,13 @@ const STEPS: Step[] = [
   {
     title: 'Kickoff',
     desc: 'We lock scope, milestones and deadlines, set up access (Shopify / WordPress, repo) and agree on how we’ll communicate throughout the build.',
-    image: '/process/03_kickoff_s.webp',
+    image: '/process/04_kickoff_s.webp',
     gradient: 'linear-gradient(135deg, #5a4632 0%, #b08d57 100%)',
   },
   {
     title: 'Design',
     desc: 'Art direction, moodboard and 2–3 key screens to lock the look and feel. Once the direction is approved, I design the full store or site.',
-    image: '/process/04_kickoff_s.webp',
+    image: '/process/_04_design.webp',
     gradient: 'linear-gradient(135deg, #6d2f4f 0%, #c66b8e 100%)',
   },
   {
