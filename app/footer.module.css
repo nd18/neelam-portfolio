@@ -1,0 +1,142 @@
+/* ── Site footer ─────────────────────────────────────────────────── */
+.footer {
+  position: relative;
+  z-index: 30;
+  background: #1e1e1e;
+  color: #f2efe9;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: 1.2fr 1.8fr 0.9fr 0.9fr;
+  gap: 40px;
+  align-items: start;
+  padding: clamp(56px, 7vw, 96px) var(--page-px) clamp(40px, 5vw, 64px);
+}
+
+/* ── brand + copyright ── */
+.brandCol {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(40px, 8vw, 90px);
+}
+
+.logo {
+  width: clamp(64px, 7vw, 96px);
+  height: auto;
+  /* the logo asset is dark — flip it to light for the dark footer */
+  filter: invert(1) brightness(1.7);
+}
+
+.copy {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(242, 239, 233, 0.6);
+  margin: 0;
+}
+
+/* ── shared column label ── */
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(242, 239, 233, 0.55);
+  margin: 0 0 18px 0;
+}
+
+/* ── email CTA ── */
+.email {
+  font-size: clamp(18px, 2.3vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: #f2efe9;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.email:hover {
+  color: #e0ff98;
+  border-color: #e0ff98;
+}
+
+/* ── link columns ── */
+.linkList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.linkList a {
+  font-size: clamp(15px, 1.3vw, 18px);
+  color: #f2efe9;
+  text-decoration: none;
+  width: fit-content;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color 0.2s ease, opacity 0.2s ease;
+}
+
+.linkList a:hover {
+  border-color: #e0ff98;
+  opacity: 0.9;
+}
+
+/* ── back to top ── */
+.backToTop {
+  display: block;
+  width: 100%;
+  border: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background: #e0ff98;
+  color: #1e1e1e;
+  font-family: inherit;
+  font-size: clamp(34px, 8vw, 88px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  padding: clamp(18px, 2.4vw, 34px) 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.25s ease, letter-spacing 0.25s ease;
+}
+
+.backToTop:hover {
+  background: #d4fa7e;
+  letter-spacing: 0.01em;
+}
+
+/* ── tablet ── */
+@media (max-width: 900px) {
+  .top {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 28px;
+  }
+
+  .brandCol {
+    gap: 28px;
+  }
+}
+
+/* ── mobile ── */
+@media (max-width: 560px) {
+  .top {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .email {
+    font-size: clamp(16px, 5.5vw, 22px);
+  }
+
+  /* "Let's talk / Book a call" is redundant on mobile (it's in the header) */
+  .talkCol {
+    display: none;
+  }
+}

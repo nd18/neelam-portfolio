@@ -10,6 +10,10 @@ export default function HeroIntro() {
   const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    // on phones the split would freeze the text at its mount-time wrapping and
+    // make it break awkwardly — keep the text flowing naturally there
+    if (window.innerWidth <= 640) return;
+
     const root = rootRef.current!;
     const targets = Array.from(root.querySelectorAll('h1, p')) as Element[];
     const splits = targets.map(

@@ -7,6 +7,7 @@ import ProjectsSection from "./components/ProjectsSection";
 import ProcessSection from "./components/ProcessSection";
 import ReviewsSection from "./components/ReviewsSection";
 import HeroIntro from "./components/HeroIntro";
+import SiteFooter from "./components/SiteFooter";
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
       <ProjectsSection />
       <ProcessSection />
       <ReviewsSection />
+      <SiteFooter />
     </main>
   );
 }

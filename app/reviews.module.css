@@ -210,6 +210,14 @@
     padding: 96px 22px 32px;
   }
 
+  .quote {
+    font-size: 14px;
+  }
+
+  .metaValue {
+    font-size: 14px;
+  }
+
   .metaRow {
     grid-template-columns: 1fr 1fr;
     gap: 18px 16px;
