@@ -44,6 +44,7 @@ const STEPS: Step[] = [
     desc: 'I build the approved design in Shopify / Liquid or WordPress — clean, fast and responsive — with regular progress updates so you’re never in the dark.',
     image: '/process/05_dev_s.webp',
     gradient: 'linear-gradient(135deg, #c9622f 0%, #f0a35e 100%)',
+    
   },
   {
     title: 'Quality Assurance',
