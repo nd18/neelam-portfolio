@@ -7,10 +7,34 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://www.byniel.com";
+const TITLE = "Neelam Malaviya | Shopify & B2B Web Developer";
+const DESCRIPTION =
+  "Neelam Malaviya — senior e-commerce developer with 7+ years building Shopify Plus stores and B2B websites that drive revenue.";
+
 export const metadata: Metadata = {
-  title: "Neelam Malaviya — Shopify & WordPress Developer",
-  description:
-    "Portfolio of Neelam Malaviya — senior Shopify & WordPress developer building high-converting e-commerce stores and custom CMS solutions.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: SITE_URL,
+    siteName: "Neelam Malaviya",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function RootLayout({
