@@ -12,7 +12,8 @@ interface Project {
   title: string;
   desc: string;
   tags: string[];
-  url: string;
+  /* "View Project" is hidden when there is no live link */
+  url?: string;
   /* drop a screenshot in public/projects/ and set its path here */
   image?: string;
   gradient: string;
@@ -20,6 +21,15 @@ interface Project {
 }
 
 const PROJECTS: Project[] = [
+  {
+    title: 'Anan Jewels: WordPress theme design and development',
+    desc: 'WordPress theme designed and developed for a high jewellery brand — an elegant, image-led experience showcasing its heritage, craftsmanship and collections.',
+    tags: ['WordPress', 'Theme Design', 'Development'],
+    url: 'https://ananjewels.com/',
+    image: '/projects/Anan-Jewels.png',
+    gradient: 'linear-gradient(135deg, #5b7589 0%, #cfd9df 100%)',
+    label: 'Anan Jewels',
+  },
   {
     title: 'Studio Forge: Figma to custom WordPress theme',
     desc: 'Fully custom WordPress theme built from scratch off Figma designs — pixel-perfect, with ACF and Custom Post Types powering a flexible, client-manageable content architecture.',
@@ -395,9 +405,11 @@ export default function ProjectsSection() {
           </div>
 
           <div className={styles.controls}>
-            <TiltButton className={styles.viewBtn} href={project.url} target="_blank" rel="noopener noreferrer">
-              View Project
-            </TiltButton>
+            {project.url && (
+              <TiltButton className={styles.viewBtn} href={project.url} target="_blank" rel="noopener noreferrer">
+                View Project
+              </TiltButton>
+            )}
             <div className={styles.pager}>
               <p className={styles.count}>
                 <span className={styles.countMask}>

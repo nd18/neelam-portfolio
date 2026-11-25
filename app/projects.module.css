@@ -309,7 +309,8 @@
     flex: 0 0 auto;
     justify-content: flex-end;
     gap: 16px;
-    margin: 0;
+    /* stays right-aligned even when View Project is hidden */
+    margin: 0 0 0 auto;
     padding-top: 0;
   }
 
